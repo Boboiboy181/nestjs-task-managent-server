@@ -37,7 +37,7 @@ export class TasksService {
   }
 
   updateTaskById(id: string, status: string): Task {
-    const task = this.tasks.find((el) => (el.id = id));
+    const task = this.getTaskById(id);
     task.status = TaskStatus[status];
     return task;
   }
