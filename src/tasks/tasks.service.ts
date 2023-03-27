@@ -43,6 +43,7 @@ export class TasksService {
     }
     return tasks;
   }
+
   deleteTaskById(id: string): void {
     const taskIndex = this.tasks.indexOf(
       this.tasks.find((task) => (task.id = id)),
