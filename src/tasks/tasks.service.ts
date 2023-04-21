@@ -8,45 +8,41 @@ import { Task } from './tasks.entity';
 
 @Injectable()
 export class TasksService {
-  constructor(
-    @InjectRepository(Task)
-    private tasksRepository: TasksRepository,
-  ) {}
+  // constructor(
+  //   @InjectRepository(Task)
+  //   private tasksRepository: TasksRepository,
+  // ) {}
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    const { title, description } = createTaskDto;
-    const task = this.tasksRepository.create({
-      title,
-      description,
-      status: TaskStatus.OPEN,
-    });
-    await this.tasksRepository.save(task);
-    return task;
+  // async getTaskById(id: string): Promise<Task> {
+  //   const found = await this.tasksRepository.findOne({ where: { id: id } });
+
+  //   if (!found) {
+  //     throw new NotFoundException(`Task with ID "${id}" not found`);
+  //   }
+  //   return found;
+  // }
+
+  // createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  //   return this.tasksRepository.createTask(createTaskDto);
+  // }
+
+  constructor(private readonly tasksRepository: TasksRepository) {}
+
+  async getTaskById(id: string): Promise<Task> {
+    const record = this.tasksRepository.findOne({ where: { id } });
+    if (!record) {
+      throw new NotFoundException();
+    }
+    return record;
+  }
+
+  createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
   }
 
   // getAllTask(): Task[] {
   //   return this.tasks;
   // }
-  // createTask(createTaskDto: CreateTaskDto): Task {
-  //   const { title, description } = createTaskDto;
-  //   const task: Task = {
-  //     id: uuid(),
-  //     title,
-  //     description,
-  //     status: TaskStatus.OPEN,
-  //   };
-  //   this.tasks.push(task);
-  //   return task;
-  // }
-
-  async getTaskById(id: string): Promise<Task> {
-    const found = await this.tasksRepository.findOne({ where: { id: id } });
-
-    if (!found) {
-      throw new NotFoundException(`Task with ID "${id}" not found`);
-    }
-    return found;
-  }
 
   // getTaskWithFilter(filterDto: GetTasksFilterDto): Task[] {
   //   const { status, search } = filterDto;
