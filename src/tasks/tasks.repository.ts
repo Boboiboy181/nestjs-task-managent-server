@@ -20,4 +20,14 @@ export class TasksRepository extends Repository<Task> {
     await this.save(task);
     return task;
   }
+
+  async deleteTaskById(id: string): Promise<number> {
+    const result = await this.createQueryBuilder()
+      .delete()
+      .from(Task)
+      .where('id = :id', { id })
+      .execute();
+
+    return result.affected;
+  }
 }
