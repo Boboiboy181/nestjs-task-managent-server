@@ -8,24 +8,6 @@ import { Task } from './tasks.entity';
 
 @Injectable()
 export class TasksService {
-  // constructor(
-  //   @InjectRepository(Task)
-  //   private tasksRepository: TasksRepository,
-  // ) {}
-
-  // async getTaskById(id: string): Promise<Task> {
-  //   const found = await this.tasksRepository.findOne({ where: { id: id } });
-
-  //   if (!found) {
-  //     throw new NotFoundException(`Task with ID "${id}" not found`);
-  //   }
-  //   return found;
-  // }
-
-  // createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-  //   return this.tasksRepository.createTask(createTaskDto);
-  // }
-
   constructor(private readonly tasksRepository: TasksRepository) {}
 
   async getTaskById(id: string): Promise<Task> {
