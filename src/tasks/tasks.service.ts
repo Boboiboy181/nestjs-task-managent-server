@@ -6,6 +6,7 @@ import { TasksRepository } from './tasks.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './tasks.entity';
 import { Repository } from 'typeorm';
+import { log } from 'console';
 
 @Injectable()
 export class TasksService {
@@ -16,11 +17,7 @@ export class TasksService {
   // )
 
   async getTaskById(id: string): Promise<Task> {
-    const record = await this.tasksRepository.findOne({ where: { id } });
-    if (!record) {
-      throw new NotFoundException();
-    }
-    return record;
+    return await this.tasksRepository.getTaskById(id);
   }
 
   createTask(createTaskDto: CreateTaskDto): Promise<Task> {
@@ -33,6 +30,10 @@ export class TasksService {
     if (result === 0) {
       throw new NotFoundException(`Task with id "${id}" not found`);
     }
+  }
+
+  async updateTaskById(id: string, status: string): Promise<Task> {
+    return await this.tasksRepository.updateTaskById(id, status);
   }
 
   // getAllTask(): Task[] {
@@ -53,11 +54,5 @@ export class TasksService {
   //     );
   //   }
   //   return tasks;
-  // }
-
-  // updateTaskById(id: string, status: string): Task {
-  //   const task = this.getTaskById(id);
-  //   task.status = TaskStatus[status];
-  //   return task;
   // }
 }
