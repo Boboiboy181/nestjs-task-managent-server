@@ -6,15 +6,14 @@ import { TasksRepository } from './tasks.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './tasks.entity';
 import { Repository } from 'typeorm';
-import { log } from 'console';
 
 @Injectable()
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
-  // constructor(
-  //   @InjectRepository(Task)
-  //   private tasksRepository: Repository<Task>,
-  // )
+
+  getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksRepository.getTasks(filterDto);
+  }
 
   async getTaskById(id: string): Promise<Task> {
     return await this.tasksRepository.getTaskById(id);
@@ -35,24 +34,4 @@ export class TasksService {
   async updateTaskById(id: string, status: string): Promise<Task> {
     return await this.tasksRepository.updateTaskById(id, status);
   }
-
-  // getAllTask(): Task[] {
-  //   return this.tasks;
-  // }
-
-  // getTaskWithFilter(filterDto: GetTasksFilterDto): Task[] {
-  //   const { status, search } = filterDto;
-  //   let tasks = this.getAllTask();
-  //   if (status) {
-  //     tasks = tasks.filter((task) => task.status === status);
-  //   }
-  //   if (search) {
-  //     tasks = tasks.filter(
-  //       (task) =>
-  //         task.title.toLowerCase().includes(search.toLowerCase()) ||
-  //         task.description.toLowerCase().includes(search.toLowerCase()),
-  //     );
-  //   }
-  //   return tasks;
-  // }
 }
