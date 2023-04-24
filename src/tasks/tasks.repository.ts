@@ -56,8 +56,8 @@ export class TasksRepository extends Repository<Task> {
     return task;
   }
 
-  async deleteTaskById(id: string): Promise<number> {
-    const result = await this.delete(id);
+  async deleteTaskById(id: string, user: User): Promise<number> {
+    const result = await this.delete({ id, user });
     return result.affected;
   }
 
