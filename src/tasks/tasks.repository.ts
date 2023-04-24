@@ -61,10 +61,10 @@ export class TasksRepository extends Repository<Task> {
     return result.affected;
   }
 
-  // async updateTaskById(id: string, status: string, user: User): Promise<Task> {
-  //   const task = await this.getTaskById(id, user);
-  //   task.status = TaskStatus[status];
-  //   await this.save(task);
-  //   return task;
-  // }
+  async updateTaskById(id: string, status: string, user: User): Promise<Task> {
+    const task = await this.getTaskById(id, user);
+    task.status = TaskStatus[status];
+    await this.save(task);
+    return task;
+  }
 }

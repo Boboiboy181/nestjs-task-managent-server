@@ -29,7 +29,7 @@ export class TasksService {
     }
   }
 
-  // async updateTaskById(id: string, status: string, user: User): Promise<Task> {
-  //   return await this.tasksRepository.updateTaskById(id, status, user);
-  // }
+  async updateTaskById(id: string, status: string, user: User): Promise<Task> {
+    return await this.tasksRepository.updateTaskById(id, status, user);
+  }
 }
