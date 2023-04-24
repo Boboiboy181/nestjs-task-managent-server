@@ -13,8 +13,8 @@ export class TasksService {
     return this.tasksRepository.getTasks(filterDto, user);
   }
 
-  async getTaskById(id: string): Promise<Task> {
-    return await this.tasksRepository.getTaskById(id);
+  async getTaskById(id: string, user: User): Promise<Task> {
+    return await this.tasksRepository.getTaskById(id, user);
   }
 
   createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
@@ -29,7 +29,7 @@ export class TasksService {
     }
   }
 
-  async updateTaskById(id: string, status: string): Promise<Task> {
-    return await this.tasksRepository.updateTaskById(id, status);
-  }
+  // async updateTaskById(id: string, status: string, user: User): Promise<Task> {
+  //   return await this.tasksRepository.updateTaskById(id, status, user);
+  // }
 }

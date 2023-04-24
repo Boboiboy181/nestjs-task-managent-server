@@ -32,8 +32,11 @@ export class TasksRepository extends Repository<Task> {
     return tasks;
   }
 
-  async getTaskById(id: string): Promise<Task> {
-    const record = await this.findOne({ where: { id } });
+  async getTaskById(id: string, user: User): Promise<Task> {
+    const query = this.createQueryBuilder('task');
+    query.where({ user });
+
+    const record = await query.andWhere('task.id = :id', { id }).getOne();
     if (!record) {
       throw new NotFoundException();
     }
@@ -58,10 +61,10 @@ export class TasksRepository extends Repository<Task> {
     return result.affected;
   }
 
-  async updateTaskById(id: string, status: string): Promise<Task> {
-    const task = await this.getTaskById(id);
-    task.status = TaskStatus[status];
-    await this.save(task);
-    return task;
-  }
+  // async updateTaskById(id: string, status: string, user: User): Promise<Task> {
+  //   const task = await this.getTaskById(id, user);
+  //   task.status = TaskStatus[status];
+  //   await this.save(task);
+  //   return task;
+  // }
 }
