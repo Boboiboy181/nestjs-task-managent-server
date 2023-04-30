@@ -1,4 +1,4 @@
-import { TaskStatus } from '../tasks.model';
+import { TaskStatus } from '../task-status.enum';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
