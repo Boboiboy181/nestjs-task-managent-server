@@ -7,7 +7,7 @@ import { TaskStatus } from './task-status.enum';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Injectable()
-export class TasksReposipitory {
+export class TasksRepository {
   constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
