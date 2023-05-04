@@ -53,12 +53,20 @@ export class TasksRepository {
   }
 
   async updateTaskById(id: string, status: string): Promise<Task> {
-    return await this.taskModel
-      .findByIdAndUpdate(
-        id,
-        { status: status },
-        { returnDocument: 'after', lean: true },
-      )
-      .exec();
+    try {
+      const result = await this.taskModel
+        .findByIdAndUpdate(
+          id,
+          { status: status },
+          { returnDocument: 'after', lean: true },
+        )
+        .exec();
+      return result;
+    } catch (err) {
+      if (err.name === 'CastError') {
+        throw new NotFoundException(`Task with id ${id} not found`);
+      }
+      throw err;
+    }
   }
 }
